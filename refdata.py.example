@@ -1,0 +1,101 @@
+import json
+import pprint
+import web
+
+urls = ('/', 'index',
+        '/transformers/lists/subscription.json', 'transform_to_subscription_list',
+        '/sim/subscriptions/values/.json', 'subscription_list',
+        '/sim/subscriptions/values/([a-z0-9]+).json', 'subscription_values')
+
+render = web.template.render('templates/')
+app = web.application(urls, globals())
+
+class index:
+    def GET(self):
+        return render.index()
+
+class transform_to_subscription_list:
+    def POST(self):
+        """ Transform a list of variables into a subscription list. """
+
+        json_data = web.data()
+        data = json.loads(json_data)
+
+        pprint.pprint(data['varname2subscription'])
+
+        web.header('Content-Type', 'application/json; charset=utf-8')
+        ret = json.dumps({'version': 1,
+                           'subscription_definition': {'id': "6018a3b7c3364f19781df5e0d3fce6dc059d89e5",
+                                                       'timer': 600,
+                                                       'items': [{'label': "zl20920sim2_l2",
+                                                                  'length': 1,
+                                                                  'offset': 218452,
+                                                                  'root_name': "global01",
+                                                                  'type': 2,
+                                                                  'type_key': "L2"},
+                                                                 {'label': "zf20920sim2_r8_array",
+                                                                  'length': 6,
+                                                                  'offset': 218384,
+                                                                  'root_name': "global01",
+                                                                  'type': 9,
+                                                                  'type_key': "R8"},
+                                                                 {'label': "zz20920sim2_c16",
+                                                                  'length': 1,
+                                                                  'offset': 218464,
+                                                                  'root_name': "global01",
+                                                                  'type': 11,
+                                                                  'type_key': "C16"}]}})
+        print ret
+        return ret
+
+class subscription_list:
+    def POST(self):
+        """ Create a new subscription list. """
+
+        json_data = web.data()
+        data = json.loads(json_data)
+
+        web.header('Content-Type', 'application/json; charset=utf-8')
+        ret = json.dumps({'version': 1,
+                          'subscriptions': [
+                              "cddab9c5fac5354c19a7de84abd036cedcb69ec4e86a04c5742011e98ab4a6127bca06ef587073fa"]})
+        print ret
+        return ret
+
+class subscription_values:
+    def GET(self, list_id):
+        """ Get real-time values for variables included in list. """
+
+        web.header('Content-Type', 'application/json; charset=utf-8')
+        ret = json.dumps({'version': 1,
+                          'values': [
+                             ["zl20920sim2_l2", 1, "L2", 1],
+                             ["zf20920sim2_r8_array", 6, "R8", 
+                                 [
+                                     [
+                                         [
+                                             0.012345,
+                                             0.012345,
+                                             0.012345
+                                         ],
+                                         [
+                                             0.0,
+                                             0.0,
+                                             0.0
+                                         ]
+                                     ]
+                                 ]
+                             ],
+                             ["zz20920sim2_c16", 1, "C16", {"real": 0.012345, "imag": 0.0}]
+                         ],
+                     })
+        print ret
+        return ret
+
+if __name__ == "__main__": app.run()
+
+#{"version": 1,
+# "varname2subscription": ["zl20920sim2_l2",
+#                          "zf20920sim2_r8_array",
+#                          "zz20920sim2_c16"]}
+

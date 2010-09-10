@@ -1,0 +1,2 @@
+create table documents (id integer primary key, title text, doc_type text, location text, system text, tags text);
+insert into documents (title, doc_type, location, system, tags) values ("Systembeskrivning 313", "Systembeskrivning", "http://ksu-srv-sps1/o1ua/ss313.doc", "313", "ventilkaraktäristik, pumpkurvor");

@@ -1,31 +1,48 @@
+$def with (contents)
 <!DOCTYPE html>
 <html lang="sv-SE">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Language" content="sv-SE" />
   <title>O1UA Referensdata</title>
-  <link rel="stylesheet" href="/static/css/print.css" type="text/css" media="screen, projection" />
+
+  <link rel="stylesheet" href="/static/css/blueprint/screen.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="/static/css/blueprint/src/forms.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="/static/css/blueprint/src/typography.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="/static/css/blueprint/print.css" type="text/css" media="print" />
+  <link rel="stylesheet" href="/static/css/blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="/static/css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="/static/css/screen.css" type="text/css" media="screen, projection" />
   <link rel="stylesheet" href="/static/css/print.css" type="text/css" media="print" />
 
-  <!--[if IE]><script src="/media/javascript/html5_ie.js"></script><![endif]-->
-  <script type="text/javascript" src="/media/javascript/jquery-1.4.2.min.js"></script>
+  <!--[if IE]><script src="/static/javascript/html5_ie.js"></script><![endif]-->
+  <script type="text/javascript" src="/static/javascript/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript">
+    function elementSupportsAttribute(element, attribute) {
+      var test = document.createElement(element);
+      return (attribute in test);
+    }
+  </script>
 </head>
 <body>
   <div class="container">
     <header class="span-24 last">
-      <h1 class="span-7">
-        <a href="/"><img src="/media/images/logo.png"/></a>
+      <h1 class="span-16">
+        Välkommen till O1UA:s referensdata
       </h1>
-      <div class="span-17 last" style="text-align:right;">
+      <nav class="span-8 last">
         <ul>
-          <li class="nav-first nav-border">Hej Jonas!</li><br/>
-          <li class="nav-border"><a href="/logga-ut/?next=/">Logga ut</a></li>
+          <li class="nav-first nav-border"><a href="/dokument/">Alla dokument</a></li> |
+          <li class="nav-border"><a href="/dokument/nytt/">Nytt dokument</a></li> |
+          <li class="nav-border"><a href="/">Sök</a></li>
         </ul>
-      </div>
+      </nav>
     </header>
 
     <article class="span-24 last">
-      Main content
+      <div class="span-24 last" style="text-align:center;">
+        $:contents
+      </div>
     </article>
   </div>
 </body>

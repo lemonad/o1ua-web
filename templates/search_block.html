@@ -1,0 +1,25 @@
+$def with (documents)
+    <h2>Sök efter dokument (<em>titlar, taggar och system</em>)</h2>
+    <form action="/" method="get">
+      <input id="q" name="q" size="60" placeholder="Sök efter titlar, taggar och system" autofocus>
+      <script>
+        if (!elementSupportsAttribute("input", "autofocus")) {
+          document.getElementById("q").focus();
+        }
+      </script>
+      <input type="submit" value="Sök">
+    </form>
+
+    <div style="text-align:left;">
+    <h3>Sökresultat</h3>
+    <ul>
+      $for doc in documents:
+        <li id="q$doc.id">
+          <strong>$doc.doc_type:</strong>
+          <a href="">$doc.title</a>
+          [$doc.system]<br/>
+          — $doc.tags<br/>
+          <em>$doc.location</em>
+        </li>
+    </ul>
+    </div>

@@ -1,7 +1,7 @@
 $def with (search_form, documents)
     <h2>Sök efter dokument (<em>titlar, taggar och system</em>)</h2>
-    <form name="q" action="/" method="get">
-      $:search_form.render()
+    <form name="search" action="/" method="get">
+      $:search_form.q.render()
       <script>
         if (!elementSupportsAttribute("input", "autofocus")) {
           document.getElementById("q").focus();

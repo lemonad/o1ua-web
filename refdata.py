@@ -10,11 +10,10 @@ from whoosh.qparser import MultifieldParser
 
 import document_tagging
 
-search_form = form.Form(form.Textbox('',
+search_form = form.Form(form.Textbox("q",
                                      autofocus='autofocus',
                                      size="60",
                                      placeholder="Sök efter titlar, taggar och system"))
-# <input id="q" name="q" size="60" placeholder="Sök efter titlar, taggar och system" autofocus>
 
 def index_everything():
     writer = ix.writer()
@@ -27,7 +26,6 @@ def index_everything():
                                            document.id)
         tag_names = [tag_name for (tag_id, tag_name) in tags]
         tag_str = ', '.join(tag_names)
-        print "tag_str =", tag_str
 
         # Get systems for document
         systems = tagging.get_tags_for_object("document",
@@ -35,9 +33,10 @@ def index_everything():
                                               document.id)
         system_names = [tag_name for (tag_id, tag_name) in systems]
         system_str = ', '.join(system_names)
-        print "system_str =", system_str
 
-        writer.add_document(title=document.title,
+        writer.add_document(id=unicode(document.id),
+                            _stored_id=document.id,
+                            title=document.title,
                             tags=tag_str,
                             systems=system_str)
     writer.commit()
@@ -50,8 +49,10 @@ def search(query_str):
                                    schema=ix.schema)
     query = queryparser.parse(query_str)
     results = searcher.search(query, limit=1)
-    for r in results:
-        print r
+    ids = [str(result['id']) for result in results]
+    sql_ids = ','.join(ids)
+    documents = db.query("SELECT * from document where id in (%s)" % sql_ids)
+    return documents
 
 urls = ('/', 'index')
 
@@ -62,7 +63,7 @@ db = web.database(dbn='sqlite', db='refdata.db')
 db.query("PRAGMA foreign_keys = ON")
 tagging = document_tagging.Tagging(db)
 
-schema = Schema(doc_id=ID(stored=True),
+schema = Schema(id=ID(unique=True, stored=True),
                 title=TEXT(stored=True, field_boost=2.0),
                 systems=KEYWORD(lowercase=True),
                 tags=KEYWORD(lowercase=True))
@@ -76,7 +77,9 @@ class index:
     def GET(self):
         form = search_form()
         if form.validates():
-            print form
+            documents = search(form['q'].value)
+        else:
+            documents = None
 
         # tags = tagging.get_tags_for_object("document", "tag", 1)
         #         for (tag_id, tag_name) in tags:
@@ -90,14 +93,7 @@ class index:
         #                                       ['system', 'tag'],
         #                                       ["pumpkurva", "313"])
         #         print "docs for tag =", docs
-        search(u"pump*")
 
-
-        # tag_type_id = get_tag_type('document', 'tag')
-        # system_type_id = get_tag_type('document', 'system')
-
-        # db.query("SELECT * FROM foo WHERE x = $x", vars=dict(x='f'))
-        documents = db.select('document')
         search_block = render.search_block(form, documents)
         return render.index(search_block, nav="search")
 

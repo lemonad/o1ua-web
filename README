@@ -1,9 +1,18 @@
-To get started:
+Prerequisites
+-------------
+* Git
+* Python
+* Virtualenv
+* Sqlite3 + Python bindings
 
-* Clone git project
-* cd into it
-* virtualenv --no-site-packages .
-* pip install -r requirements.txt
-* import documents.sql.example into sqlite db called 'refdata.db'
-* python refdata.py
-
+Getting started
+---------------
+* Clone github project
+* $ cd o1ua-web
+  $ virtualenv --no-site-packages .
+  $ pip install -r requirements.txt
+  $ sqlite refdata.db
+    .read schema.sql
+    .read example_data.sql (optional)
+    .quit
+  $ python refdata.py

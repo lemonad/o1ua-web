@@ -1,7 +1,7 @@
-$def with (documents)
+$def with (search_form, documents)
     <h2>Sök efter dokument (<em>titlar, taggar och system</em>)</h2>
-    <form action="/" method="get">
-      <input id="q" name="q" size="60" placeholder="Sök efter titlar, taggar och system" autofocus>
+    <form name="q" action="/" method="get">
+      $:search_form.render()
       <script>
         if (!elementSupportsAttribute("input", "autofocus")) {
           document.getElementById("q").focus();
@@ -15,10 +15,10 @@ $def with (documents)
     <ul>
       $for doc in documents:
         <li id="q$doc.id">
-          <strong>$doc.doc_type:</strong>
           <a href="">$doc.title</a>
-          [$doc.system]<br/>
-          — $doc.tags<br/>
+          $#<strong>$doc.doc_type:</strong>
+          $#[$doc.system]<br/>
+          $#&raquo; $doc.tags<br/>
           <em>$doc.location</em>
         </li>
     </ul>

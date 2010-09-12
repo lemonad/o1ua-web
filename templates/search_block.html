@@ -1,25 +1,28 @@
 $def with (search_form, documents)
-    <h2>Sök efter dokument (<em>titlar, taggar och system</em>)</h2>
-    <form name="search" action="/" method="get">
-      $:search_form.q.render()
-      <script>
-        if (!elementSupportsAttribute("input", "autofocus")) {
-          document.getElementById("q").focus();
-        }
-      </script>
-      <input type="submit" value="Sök">
-    </form>
+    <div class="span-24 last" style="text-align:center;">
+      <h2>Sök efter dokument (<em>titlar, taggar och system</em>)</h2>
+      <form name="search" action="/" method="get">
+        $:search_form.q.render()
+        <script>
+          if (!elementSupportsAttribute("input", "autofocus")) {
+            document.getElementById("q").focus();
+          }
+        </script>
+        <input type="submit" value="Sök">
+      </form>
 
-    <div style="text-align:left;">
-    <h3>Sökresultat</h3>
-    <ul>
-      $for doc in documents:
-        <li id="q$doc.id">
-          <a href="">$doc.title</a>
-          $#<strong>$doc.doc_type:</strong>
-          $#[$doc.system]<br/>
-          $#&raquo; $doc.tags<br/>
-          <em>$doc.location</em>
-        </li>
-    </ul>
+      $if documents:
+        <div style="text-align:left;">
+          <h3>Sökresultat</h3>
+          <ul>
+            $for doc in documents:
+              <li id="q$doc['id']">
+                <a href="/dokument/$doc['id']/">$doc['title']</a>
+                <strong>$doc['type']</strong>
+                [$doc['systems']]<br/>
+                $doc['tags']<br/>
+                <em>$doc['location']</em>
+              </li>
+          </ul>
+        </div>
     </div>

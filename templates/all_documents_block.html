@@ -1,0 +1,23 @@
+$def with (documents)
+    <div class="span-24 last" style="text-align:center;">
+      <div style="text-align:left;">
+        <h2>Alla dokument</h2>
+
+        $if not documents:
+          <p>
+            Det finns inga dokument ännu.
+            <a href="/dokument/">Vill du skapa ett?</a>
+          </p>
+        $else:
+          <ul>
+            $for doc in documents:
+              <li id="q$doc['id']">
+                <a href="/dokument/$doc['id']/">$doc['title']</a>
+                <strong>$doc['type']</strong>
+                [$doc['systems']]<br/>
+                $doc['tags']<br/>
+                <em>$doc['location']</em>
+              </li>
+          </ul>
+      </div>
+    </div>

@@ -1,0 +1,65 @@
+$def with (document_form, document, tag_names)
+    $if document:
+      <h2>Redigera dokument</h2>
+    $else:
+      <h2>Nytt dokument</h2>
+    $if not document_form.valid: <p class="error">Det finns fel i formuläret</p>
+    <form name="document" method="post">
+      <div class="span-24 last">
+        <div class="label span-4">
+          <label for="title">Titel</label>
+        </div>
+        <div class="span-16 append-3">
+          $:document_form.title.render()
+          $:document_form.title.rendernote(document_form.title.note)
+        </div>
+
+        <div class="label span-4">
+          <label for="document_type">Typ</label>
+        </div>
+        <div class="span-6 append-13">
+          $:document_form.document_type.render()
+          $:document_form.document_type.rendernote(document_form.document_type.note)
+        </div>
+
+        <div class="label span-4">
+          <label for="location">Plats</label>
+        </div>
+        <div class="span-16 append-3">
+          $:document_form.location.render()
+          $:document_form.location.rendernote(document_form.location.note)
+        </div>
+
+        <div class="label span-4">
+          <label for="systems">System</label>
+        </div>
+        <div class="span-16 append-3">
+          $:document_form.systems.render()
+          $:document_form.systems.rendernote(document_form.systems.note)
+        </div>
+
+        <div class="label span-4">
+          <label for="systems">Taggar</label>
+        </div>
+        <div class="span-16 append-3">
+          $:document_form.tags.render()
+          $:document_form.tags.rendernote(document_form.tags.note)
+        </div>
+
+        <div class="prepend-4 span-6 append-13">
+          <select id="add_tag" name="add_tag">
+            $for tag in tag_names:
+              <option value="$tag">$tag</option>
+          </select>
+          <input type="submit" value="Lägg till tagg">
+        </div>
+
+        <div class="label span-4">&nbsp;</div>
+        <div class="span-16 last" style="text-align:right">
+          $if document:
+            <input type="submit" value="Uppdatera dokument">
+          $else:
+            <input type="submit" value="Lägg till dokument">
+        </div>
+      </div>
+    </form>

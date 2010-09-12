@@ -2,14 +2,14 @@ PRAGMA foreign_keys = ON;
 
 CREATE TABLE document_type (
         id integer PRIMARY KEY,
-        name text
+        name text NOT NULL UNIQUE
 );
 
 CREATE TABLE document (
         id integer PRIMARY KEY,
-        title text,
+        title text NOT NULL UNIQUE,
         type_id integer NULL REFERENCES document_type (id),
-        location text
+        location text NOT NULL
 );
 CREATE INDEX document_type_id
         ON document (type_id);
@@ -31,7 +31,7 @@ CREATE TABLE tagged_object (
         tag_id integer NOT NULL REFERENCES tag (id),
         tag_type_id integer NOT NULL REFERENCES tag_type (id),
         object_id integer unsigned NOT NULL,
-        UNIQUE (tag_id, object_id)
+        UNIQUE (tag_id, tag_type_id, object_id)
 );
 CREATE INDEX tagged_object_tag_id
         ON tagged_object (tag_id);

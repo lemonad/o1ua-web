@@ -32,18 +32,35 @@ $def with (contents, nav)
       </h1>
       <nav class="span-8 last">
         <ul>
-          <li class="nav-first nav-border"><a href="/dokument/">Alla dokument</a></li> |
-          <li class="nav-border"><a href="/dokument/nytt/">Nytt dokument</a></li> |
-          <li class="nav-border"><a href="/">Sök</a></li>
+          <li class="nav-first nav-border">
+            $if nav == "all-documents":
+              Alla dokument
+            $else:
+              <a href="/alla-dokument/">Alla dokument</a>
+          </li> |
+          <li class="nav-border">
+            $if nav == "new-document":
+              Nytt dokument
+            $else:
+              <a href="/dokument/">Nytt dokument</a>
+          </li> |
+          <li class="nav-border">
+            $if nav == "search":
+              Sök
+            $else:
+              <a href="/">Sök</a>
+          </li>
         </ul>
       </nav>
     </header>
 
     <article class="span-24 last">
-      <div class="span-24 last" style="text-align:center;">
-        $:contents
-      </div>
+      $:contents
     </article>
+
+    <footer class="span-24 last" style="margin-top:2em;margin-bottom:2em;text-align:center;">
+        &nbsp;
+    </footer>
   </div>
 </body>
 </html>

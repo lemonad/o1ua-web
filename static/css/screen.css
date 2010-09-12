@@ -4,3 +4,9 @@ nav ul {
 nav ul li {
     display: inline;
     }
+div.label {
+    text-align: right;
+    }
+textarea {
+    height: 50px;
+    }

@@ -5,9 +5,9 @@ import os
 import web
 from web.form import Dropdown, Form, notnull, regexp, Textarea, Textbox
 
-from document_tagging import Tagging
+from tagging import Tagging
 from search import Search
-from document import *
+from document import Document
 
 urls = ("/", "index",
         "/alla-dokument/", "all_documents",

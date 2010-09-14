@@ -36,9 +36,9 @@ class Search:
 
         # Get document type as a string
         if document.type_id:
-            doctype = db.select("document_type",
-                                where="id = $id",
-                                vars={'id': document.type_id})[0].name
+            doctype = self.db.select("document_type",
+                                     where="id = $id",
+                                     vars={'id': document.type_id})[0].name
         else:
             doctype = ""
 
@@ -73,9 +73,9 @@ class Search:
         for document in documents:
             # Get document type as a string
             if document.type_id:
-                doctype = db.select("document_type",
-                                    where="id = $id",
-                                    vars={'id': document.type_id})[0].name
+                doctype = self.db.select("document_type",
+                                         where="id = $id",
+                                         vars={'id': document.type_id})[0].name
             else:
                 doctype = ""
 
@@ -107,7 +107,7 @@ class Search:
         queryparser = MultifieldParser(["title", "tags", "systems"],
                                        schema=self.ix.schema)
         query = queryparser.parse(query_str)
-        results = searcher.search(query, sortedby="title")
+        results = searcher.search(query, sortedby="type, title")
         for result in results:
             print result
 

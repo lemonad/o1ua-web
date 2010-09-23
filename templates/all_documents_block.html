@@ -6,13 +6,13 @@ $def with (documents)
         $if not documents:
           <p>
             Det finns inga dokument ännu.
-            <a href="/dokument/">Vill du skapa ett?</a>
+            <a href="$url('/dokument/')">Vill du skapa ett?</a>
           </p>
         $else:
           <ul>
             $for doc in documents:
               <li id="q$doc['id']">
-                <a href="/dokument/$doc['id']/">$doc['title']</a>
+                <a href="$url('/dokument/%s/' % doc['id'])">$doc['title']</a>
                 <strong>$doc['type']</strong>
                 [$doc['systems']]<br/>
                 $doc['tags']<br/>

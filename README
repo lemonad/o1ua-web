@@ -15,4 +15,8 @@ Getting started
     .read schema.sql
     .read example_data.sql (optional)
     .quit
+* Rename example.config.py to config.py
+  $ mv example.config.py config.py
+* Edit base_url setting in config.py to suit your needs.
+* Launch application
   $ python refdata.py

@@ -6,14 +6,14 @@ $def with (contents, nav)
   <meta http-equiv="Content-Language" content="sv-SE" />
   <title>O1UA Referensdata</title>
 
-  <link rel="stylesheet" href="/static/css/blueprint/screen.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="/static/css/blueprint/src/forms.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="/static/css/blueprint/src/typography.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="/static/css/blueprint/print.css" type="text/css" media="print" />
-  <link rel="stylesheet" href="/static/css/blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="/static/css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="/static/css/screen.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="/static/css/print.css" type="text/css" media="print" />
+  <link rel="stylesheet" href="$static_url('/css/blueprint/screen.css')" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="$static_url('/css/blueprint/src/forms.css')" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="$static_url('/css/blueprint/src/typography.css')" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="$static_url('/css/blueprint/print.css')" type="text/css" media="print" />
+  <link rel="stylesheet" href="$static_url('/css/blueprint/plugins/buttons/screen.css')" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="$static_url('/css/blueprint/plugins/fancy-type/screen.css')" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="$static_url('/css/screen.css')" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="$static_url('/css/print.css')" type="text/css" media="print" />
 
   <!--[if IE]><script src="/static/javascript/html5_ie.js"></script><![endif]-->
   <script type="text/javascript" src="/static/javascript/jquery-1.4.2.min.js"></script>
@@ -36,19 +36,19 @@ $def with (contents, nav)
             $if nav == "all-documents":
               Alla dokument
             $else:
-              <a href="/alla-dokument/">Alla dokument</a>
+              <a href="$url('/alla-dokument/')">Alla dokument</a>
           </li> |
           <li class="nav-border">
             $if nav == "new-document":
               Nytt dokument
             $else:
-              <a href="/dokument/">Nytt dokument</a>
+              <a href="$url('/dokument/')">Nytt dokument</a>
           </li> |
           <li class="nav-border">
             $if nav == "search":
               Sök
             $else:
-              <a href="/">Sök</a>
+              <a href="$url('/')">Sök</a>
           </li>
         </ul>
       </nav>

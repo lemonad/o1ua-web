@@ -1,7 +1,7 @@
 $def with (search_form, documents)
     <div class="span-24 last" style="text-align:center;">
       <h2>Sök efter dokument (<em>titlar, taggar och system</em>)</h2>
-      <form name="search" action="/" method="get">
+      <form name="search" action="$url('/')" method="get">
         $:search_form.q.render()
         <script>
           if (!elementSupportsAttribute("input", "autofocus")) {
@@ -17,7 +17,7 @@ $def with (search_form, documents)
           <ul>
             $for doc in documents:
               <li id="q$doc['id']">
-                <a href="/dokument/$doc['id']/">$doc['title']</a>
+                <a href="$url('/dokument/%s/' % doc['id'])">$doc['title']</a>
                 <strong>$doc['type']</strong>
                 [$doc['systems']]<br/>
                 $doc['tags']<br/>

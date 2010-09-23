@@ -15,12 +15,18 @@ from web.form import Dropdown, Form, notnull, regexp, Textarea, Textbox
 from tagging import Tagging
 from search import Search
 from document import Document
+import config
 
-urls = ("/", "index",
-        "/alla-dokument/", "all_documents",
-        "/dokument/", "new_document",
-        "/dokument/([0-9]+)/",
-        "edit_document")
+def url(app_url):
+    return config.base_url.rstrip("/")+app_url
+
+def static_url(app_url):
+    return config.static_base_url.rstrip("/")+app_url
+
+urls = (url("/"), "index",
+        url("/alla-dokument/"), "all_documents",
+        url("/dokument/"), "new_document",
+        url("/dokument/([0-9]+)/"), "edit_document")
 
 search_form = Form(
     Textbox("q",
@@ -39,14 +45,14 @@ document_form = Form(
     Textbox("systems", class_="span-16"),
     Textbox("tags", class_="span-16")
 )
-render = web.template.render("templates/")
+
+render = web.template.render("templates/", globals={"url": url, "static_url": static_url})
 app = web.application(urls, globals())
 db = web.database(dbn="sqlite", db="refdata.db")
 db.query("PRAGMA foreign_keys = ON")
 tagging = Tagging(db)
 searching = Search(db, tagging)
 documenting = Document(db, tagging, searching)
-
 
 class index():
     def GET(self):
@@ -91,7 +97,7 @@ class new_document():
                                                form["location"].value,
                                                form["systems"].value,
                                                form["tags"].value)
-        raise web.seeother("/dokument/%d/" % document_id)
+        raise web.seeother(url("/dokument/%d/") % document_id)
 
 class edit_document():
     def GET(self, document_id):
@@ -145,7 +151,7 @@ class edit_document():
                                         form["location"].value,
                                         form["systems"].value,
                                         form["tags"].value)
-            raise web.seeother("/dokument/%d/" % document.id)
+            raise web.seeother(url("/dokument/%d/") % document.id)
 
 
 if __name__ == "__main__":

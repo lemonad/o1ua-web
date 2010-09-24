@@ -23,7 +23,7 @@ def url(app_url):
 def static_url(app_url):
     return config.static_base_url.rstrip("/")+app_url
 
-urls = (url("/"), "index",
+urls = (url("/?"), "index",
         url("/alla-dokument/"), "all_documents",
         url("/dokument/"), "new_document",
         url("/dokument/([0-9]+)/"), "edit_document")

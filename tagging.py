@@ -94,7 +94,6 @@ class Tagging:
 
         # Add new object tags
         for tag_name in tag_names:
-            print "tag =", tag_name
             if tag_name in current_tags:
                 del current_tags[tag_name]
             else:

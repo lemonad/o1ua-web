@@ -108,9 +108,6 @@ class Search:
                                        schema=self.ix.schema)
         query = queryparser.parse(query_str)
         results = searcher.search(query, sortedby="type, title")
-        for result in results:
-            print result
-
         #ids = [str(result['id']) for result in results]
         #sql_ids = ','.join(ids)
         #documents = self.db.query("SELECT * from document "
